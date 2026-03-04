@@ -1,0 +1,52 @@
+﻿@model SupportManagement.Models.Ticket
+
+@{
+    ViewData["Title"] = "Abrir Novo Ticket";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">@ViewData["Title"]</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create">
+                <div asp-validation-summary="All" class="text-danger fw-bold mb-3"></div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Título do Incidente</label>
+                    <input asp-for="Name" class="form-control" placeholder="Ex: Monitor não liga"/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Requester" class="form-label">Nome do Solicitante</label>
+                    <input asp-for="Requester" class="form-control"/>
+                    <span asp-validation-for="Requester" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label">Categoria</label>
+                    <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categorias">
+                        <option value="">-- Selecione uma Categoria --</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Descrição Detalhada</label>
+                    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a asp-action="Index" class="btn btn-secondary me-md-2">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Salvar Ticket</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

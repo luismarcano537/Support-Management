@@ -1,0 +1,60 @@
+﻿@model SupportManagement.Models.Ticket
+@using SupportManagement.Models.Enums
+
+@{
+    ViewData["Title"] = "Atualizar Ticket";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0">@ViewData["Title"] - #@Model.Id</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreationDate" /> <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Título</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Requester" class="form-label">Solicitante</label>
+                        <input asp-for="Requester" class="form-control" />
+                        <span asp-validation-for="Requester" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CategoryId" class="form-label">Categoria</label>
+                        <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.Categorias"></select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3 border-start border-4 border-primary ps-3 py-2 bg-light">
+                    <label asp-for="Situation" class="form-label fw-bold">Status do Atendimento</label>
+                    <select asp-for="Situation" class="form-select border-primary" asp-items="Html.GetEnumSelectList<Status>()"></select>
+                    <span asp-validation-for="Situation" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Descrição</label>
+                    <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a asp-action="Index" class="btn btn-secondary me-md-2">Voltar</a>
+                    <button type="submit" class="btn btn-primary">Atualizar e Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

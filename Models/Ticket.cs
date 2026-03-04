@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using SupportManagement.Models.Enums;
 
@@ -27,6 +28,7 @@ public class Ticket
     [Required(ErrorMessage = "A categoria é obrigatória.")]
     public int CategoryId { get; set; }
     
+    [ValidateNever]
     [ForeignKey("CategoryId")]
     public Category Category { get; set; }
 }
